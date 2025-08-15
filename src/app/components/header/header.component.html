@@ -1,4 +1,11 @@
 <mat-toolbar class="max-w-7xl mx-auto border-x justify-between">
   <a routerLink="home">Code with Uniq store</a>
-  <mat-icon [matBadge]="1">shopping_cart</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon [matBadge]="1" matBadgeColor="warn">shopping_cart</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <div class="p-3 divide-y divide-solid">
+      <div class="pb-3 flex justify-between"></div>
+    </div>
+  </mat-menu>
 </mat-toolbar>
