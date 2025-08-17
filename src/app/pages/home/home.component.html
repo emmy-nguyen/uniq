@@ -8,6 +8,8 @@
   <mat-drawer-content class="p-6">
     <app-products-header (columnsCountChange)="onColumnsCountChange($event)">
     </app-products-header>
-    <p>Current: {{ category }}</p>
+    <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
+      <mat-grid-tile> </mat-grid-tile
+    ></mat-grid-list>
   </mat-drawer-content>
 </mat-drawer-container>
