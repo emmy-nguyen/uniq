@@ -54,7 +54,12 @@
 
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>
-        <button mat-raised-button color="warn" class="float-right">
+        <button
+          mat-raised-button
+          color="warn"
+          class="float-right"
+          (click)="onClearCart()"
+        >
           Clear All
         </button>
       </th>
@@ -77,5 +82,5 @@
 </mat-card>
 <mat-card class="max-w-7xl mx-auto" *ngIf="!cart.items.length">
   <p>Your cart is empty</p>
-  <button mat-raised-button routerLinke="/home">Start shopping</button>
+  <button mat-raised-button routerLink="/home">Start shopping</button>
 </mat-card>
