@@ -28,6 +28,24 @@ export class CartService {
     console.log(this.cart.value);
   }
 
+  removeQuantity(item: CartItem): void {
+    const items = this.cart.value.items
+      .map((_item) => {
+        if (_item.id === item.id) {
+          const updatedQuantity = _item.quantity - 1;
+          return { ..._item, quantity: updatedQuantity };
+        }
+        return _item;
+      })
+      .filter((_item) => _item.quantity > 0);
+
+    this.cart.next({
+      ...this.cart.value,
+      items,
+    });
+    this._snackBar.open("1 item removed from cart", "Ok", { duration: 3000 });
+  }
+
   getTotal(items: Array<CartItem>): number {
     return items
       .map((item) => item.price * item.quantity)
