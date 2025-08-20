@@ -1,27 +1,81 @@
 <mat-drawer-container
   [autosize]="true"
-  class="min-h-full max-w-7xl mx-auto border-x"
+  class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
 >
-  <mat-drawer mode="side" opened class="p-6">
-    <app-filters (showCategory)="onShowCategory($event)"></app-filters>
+  <mat-drawer
+    mode="side"
+    opened
+    class="w-80 bg-white/95 backdrop-blur-sm border-r border-gray-200/60 shadow-lg dark:bg-gray-800/95 dark:border-gray-700/60"
+  >
+    <div class="p-6 border-b border-gray-100 dark:border-gray-700">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+        Filters
+      </h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400">Refine your search</p>
+    </div>
+    <div class="p-6">
+      <app-filters
+        (showCategory)="onShowCategory($event)"
+        class="space-y-4"
+      ></app-filters>
+    </div>
   </mat-drawer>
   <mat-drawer-content class="p-6">
-    <app-products-header
-      (columnsCountChange)="onColumnsCountChange($event)"
-      (itemsCountChange)="onItemsCountChange($event)"
-      (sortChange)="onSortChange($event)"
-    >
-    </app-products-header>
-    <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
-      <mat-grid-tile *ngFor="let product of products">
-        <app-product-box
-          [product]="product"
-          (addToCart)="onAddToCart($event)"
-          class="w-full"
-          [fullWidthMode]="cols === 1"
+    <div class="max-w-7xl mx-auto">
+      <div
+        class="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-20/60 shadow-sm dark:bg-gray-900/80 dark:border-gray-700/60"
+      >
+        <div class="px-6 py-4">
+          <app-products-header
+            (columnsCountChange)="onColumnsCountChange($event)"
+            (itemsCountChange)="onItemsCountChange($event)"
+            (sortChange)="onSortChange($event)"
+          >
+          </app-products-header>
+        </div>
+      </div>
+      <div class="p-6">
+        <div
+          *ngIf="isLoading"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
-        </app-product-box>
-      </mat-grid-tile>
-    </mat-grid-list>
+          <div
+            *ngFor="let skeleton of [1, 2, 3, 4, 5, 6, 7, 8]"
+            class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 animate-pulse dark:bg-gray-800 dark:border-gray-700"
+          >
+            <div
+              class="bg-gray-200 rounded-lg h-48 mb-4 dark:bg-gray-700"
+            ></div>
+            <div class="space-y-2">
+              <div class="bg-gray-200 rounded h-4 w-3/4 dark:bg-gray-700"></div>
+              <div class="bg-gray-200 rounded h-4 w-1/2 dark:bg-gray-700"></div>
+            </div>
+          </div>
+        </div>
+        <mat-grid-list
+          *ngIf="!isLoading"
+          gutterSize="16"
+          [cols]="cols"
+          [rowHeight]="rowHeight"
+          class="rounded-xl overflow-hidden"
+        >
+          <mat-grid-tile
+            *ngFor="let product of products"
+            class="transition-all duration-300 hover:scale-[1.02]"
+          >
+            <div class="w-full h-full p-1">
+              <app-product-box
+                [product]="product"
+                (addToCart)="onAddToCart($event)"
+                class="w-full h-full block"
+                [fullWidthMode]="cols === 1"
+                [class]="getProductBoxClasses()"
+              >
+              </app-product-box>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

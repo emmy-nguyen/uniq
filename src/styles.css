@@ -11,3 +11,144 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* Add these custom styles to enhance the Material components */
+
+@layer components {
+  /* Enhanced Material Drawer Container */
+  .mat-drawer-container {
+    @apply relative;
+  }
+
+  /* Beautiful Material Drawer */
+  .mat-drawer {
+    @apply shadow-xl;
+  }
+
+  .mat-drawer.mat-drawer-opened {
+    @apply border-0;
+  }
+
+  /* Enhanced Material Grid */
+  .mat-grid-list {
+    @apply overflow-visible;
+  }
+
+  .mat-grid-tile {
+    @apply overflow-visible;
+  }
+
+  .mat-grid-tile .mat-grid-tile-content {
+    @apply p-0 overflow-visible;
+  }
+
+  /* Custom scrollbar for drawer content */
+  .mat-drawer {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+
+  .mat-drawer::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .mat-drawer::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .mat-drawer::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+
+  .mat-drawer::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+
+  /* Enhanced focus states */
+  .enhanced-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Responsive breakpoint utilities */
+/* @screen xs {
+  .cols-responsive {
+    @apply grid-cols-1;
+  }
+} */
+
+@screen sm {
+  .cols-responsive {
+    @apply grid-cols-2;
+  }
+}
+
+@screen lg {
+  .cols-responsive {
+    @apply grid-cols-3;
+  }
+}
+
+@screen xl {
+  .cols-responsive {
+    @apply grid-cols-4;
+  }
+}
+
+/* Fix mat-menu width to match with cart content */
+.mat-menu-panel {
+  min-width: 320px !important;
+  max-width: 400px !important;
+  width: auto !important; /* auto width with content */
+}
+
+/* Or fixed width */
+.mat-menu-panel.cart-menu {
+  width: 320px !important;
+}
+
+/* Content not overflow */
+.mat-menu-content {
+  padding: 0 !important;
+  max-height: 400px !important;
+  overflow: visible !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .mat-menu-panel {
+    min-width: 280px !important;
+    max-width: 90vw !important;
+  }
+}
