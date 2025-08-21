@@ -71,14 +71,14 @@ body {
     @apply bg-slate-300 rounded-full;
   }
 
-  .mat-drawer::-webkit-scrollbar-thumb:hover {
+  /* .mat-drawer::-webkit-scrollbar-thumb:hover {
     @apply bg-slate-400;
-  }
+  } */
 
   /* Enhanced focus states */
-  .enhanced-focus {
+  /* .enhanced-focus {
     @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
-  }
+  } */
 }
 
 /* Custom animations */
@@ -113,11 +113,6 @@ body {
 }
 
 /* Responsive breakpoint utilities */
-/* @screen xs {
-  .cols-responsive {
-    @apply grid-cols-1;
-  }
-} */
 
 @screen sm {
   .cols-responsive {
@@ -178,8 +173,7 @@ body {
   overflow: hidden;
 }
 
-/* mat-list-option */
-
+/* mat-list-option in category*/
 .mat-button-focus-overlay {
   background: transparent !important;
   box-shadow: none !important;
@@ -209,6 +203,16 @@ body {
   background-color: transparent !important;
 }
 
+/* panel category */
+.mat-expansion-panel {
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+.mat-expansion-panel-header:hover {
+  background-color: transparent !important;
+  cursor: default;
+}
 /* Sort card */
 .sort-card {
   border-radius: 20px !important;

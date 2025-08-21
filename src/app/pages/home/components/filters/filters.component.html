@@ -1,24 +1,12 @@
-<!-- <mat-expansion-panel *ngIf="categories">
-  <mat-expansion-panel-header>
-    <mat-panel-title> CATEGORIES </mat-panel-title>
-  </mat-expansion-panel-header>
-
-  <mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let category of categories" [value]="category">
-      <button (click)="onShowCategory(category)">{{ category }}</button>
-    </mat-list-option>
-  </mat-selection-list>
-</mat-expansion-panel> -->
-
 <mat-expansion-panel
   *ngIf="categories"
-  class="my-4 mx-0 md:mx-2 shadow-lg rounded-xl overflow-hidden"
+  class="my-4 mx-0 md:mx-2 overflow-hidden border"
 >
   <mat-expansion-panel-header
-    class="bg-[#f9c273] text-white min-h-14 hover:bg-[#f9c273]/90 transition-all duration-200 md:min-h-12 sm:min-h-11 px-4 md:px-3 sm:px-2"
+    class="bg-transparent text-yellow-700 min-h-14 md:min-h-12 sm:min-h-11 px-4 md:px-3 sm:px-2"
   >
     <mat-panel-title
-      class="flex items-center gap-2 font-semibold text-white text-lg tracking-wide md:text-base sm:text-sm sm:gap-1.5"
+      class="flex items-center gap-2 font-semibold text-yellow-700 text-lg tracking-wide md:text-base sm:text-sm sm:gap-1.5"
     >
       CATEGORIES
     </mat-panel-title>
@@ -32,7 +20,7 @@
     <mat-list-option
       *ngFor="let category of categories"
       [value]="category"
-      class="rounded-full border-b border-gray-100 last:border-b-0 transition-all duration-200"
+      class="rounded-full border-b border-gray-100 last:border-b-0"
     >
       <button
         (click)="onShowCategory(category)"
