@@ -208,3 +208,14 @@ body {
 .mat-selection-list {
   background-color: transparent !important;
 }
+
+/* Sort card */
+.sort-card {
+  border-radius: 20px !important;
+  box-shadow: none !important;
+}
+
+/* mat-menu */
+.mat-menu-panel {
+  border-radius: 20px !important;
+}
