@@ -223,3 +223,14 @@ body {
 .mat-menu-panel {
   border-radius: 20px !important;
 }
+
+/* empty state in cart page */
+.empty-state {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.start-shopping-button {
+  border-radius: 30px !important;
+  box-shadow: none !important;
+}

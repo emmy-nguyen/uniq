@@ -90,7 +90,67 @@
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </table>
 </mat-card>
-<mat-card class="max-w-7xl mx-auto" *ngIf="!cart.items.length">
-  <p>Your cart is empty</p>
-  <button mat-raised-button routerLink="/home">Start shopping</button>
+
+<!-- Empty Cart State -->
+<mat-card
+  class="max-w-4xl mx-auto my-8 overflow-hidden empty-state"
+  *ngIf="!cart.items.length"
+>
+  <div class="text-center py-16 px-8 md:py-20 md:px-12 relative">
+    <div class="relative z-10 space-y-6">
+      <div
+        class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center"
+      >
+        <mat-icon class="text-gray-400 text-2xl"
+          >shopping_cart_checkout</mat-icon
+        >
+      </div>
+      <p class="text-gray-500 md:text-lg text-sm">Your cart is empty</p>
+      <p class="text-gray-400 md:text-sm mt-1 text-xs">
+        Start adding masterpieces to your collection!
+      </p>
+      <div class="pt-6">
+        <button
+          mat-raised-button
+          routerLink="/home"
+          class="bg-[#e04639] start-shopping-button text-white font-bold"
+        >
+          <span class="flex items-center gap-3 p-1.5 md:p-2 md:text-lg text-sm"
+            ><mat-icon>home</mat-icon> Start Shopping
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
 </mat-card>
+
+<style>
+  /* Custom animations */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Button hover effects */
+  .mat-mdc-raised-button:not([disabled]) {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .max-w-4xl {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  }
+</style>
