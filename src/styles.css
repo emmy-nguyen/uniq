@@ -11,9 +11,11 @@ body {
   margin: 0;
 }
 
+.mat-body,
 .mat-body p,
 .mat-body-1 p,
-.mat-typography p {
+.mat-typography p,
+.mat-button-wrapper {
   font-family: "Poppins", sans-serif !important;
 }
 
@@ -22,7 +24,6 @@ body {
 .mat-typography h3 {
   font-family: "Playfair Display", serif !important;
 }
-/* Add these custom styles to enhance the Material components */
 
 @layer components {
   /* Enhanced Material Drawer Container */
@@ -175,4 +176,59 @@ body {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* mat-list-option */
+/* .mat-mdc-list-option {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.mat-mdc-list-option.mdc-list-item--selected {
+  background: transparent !important;
+}
+.mat-mdc-button {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.mat-list-text {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.mat-button-focus-overlay {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.mat-mdc-list-option.mdc-list-item--selected,
+.mat-mdc-list-option.mdc-list-item--activated {
+  background: transparent !important;
+  box-shadow: none !important;
+} */
+
+.mat-button-focus-overlay {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.mat-mdc-list-option.mdc-list-item--selected button {
+  color: #f9c273 !important;
+  font-weight: 600;
+}
+
+.mat-selection-list .mat-list-option.mat-list-item-selected {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* Remove focus/active background */
+.mat-selection-list .mat-list-option.mat-list-item-focused {
+  background-color: transparent !important;
+}
+
+/* Remove ripple effect (you already have disableRipple="true") */
+.mat-selection-list .mat-list-option .mat-ripple-element {
+  display: none !important;
+}
+
+/* Remove any hover background from Material */
+.mat-selection-list {
+  background-color: transparent !important;
 }

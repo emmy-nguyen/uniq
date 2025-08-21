@@ -1,4 +1,4 @@
-<mat-expansion-panel *ngIf="categories">
+<!-- <mat-expansion-panel *ngIf="categories">
   <mat-expansion-panel-header>
     <mat-panel-title> CATEGORIES </mat-panel-title>
   </mat-expansion-panel-header>
@@ -6,6 +6,41 @@
   <mat-selection-list [multiple]="false">
     <mat-list-option *ngFor="let category of categories" [value]="category">
       <button (click)="onShowCategory(category)">{{ category }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel> -->
+
+<mat-expansion-panel
+  *ngIf="categories"
+  class="my-4 mx-0 md:mx-2 shadow-lg rounded-xl overflow-hidden"
+>
+  <mat-expansion-panel-header
+    class="bg-[#f9c273] text-white min-h-14 hover:bg-[#f9c273]/90 transition-all duration-200 md:min-h-12 sm:min-h-11 px-4 md:px-3 sm:px-2"
+  >
+    <mat-panel-title
+      class="flex items-center gap-2 font-semibold text-white text-lg tracking-wide md:text-base sm:text-sm sm:gap-1.5"
+    >
+      CATEGORIES
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-selection-list
+    [multiple]="false"
+    class="max-h-72 md:max-h-60 sm:max-h-48 overflow-y-auto py-2"
+    [disableRipple]="true"
+  >
+    <mat-list-option
+      *ngFor="let category of categories"
+      [value]="category"
+      class="rounded-full border-b border-gray-100 last:border-b-0 transition-all duration-200"
+    >
+      <button
+        (click)="onShowCategory(category)"
+        class="w-full text-left p-3 md:p-3.5 sm:p-4 mx-2 md:mx-1 sm:mx-0.5 border-none text-sm font-medium !bg-transparent !shadow-none text-gray-700 rounded-full hover:text-yellow-700 md:text-base sm:text-sm"
+        mat-button
+      >
+        {{ category }}
+      </button>
     </mat-list-option>
   </mat-selection-list>
 </mat-expansion-panel>

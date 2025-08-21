@@ -1,36 +1,35 @@
 <mat-toolbar
-  class="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/60 sticky top-0 z-50 transition-all duration-300 dark:bg-gray-900/95 dark:border-gray-700/60"
+  class="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/60 sticky top-0 z-50 transition-all duration-300"
 >
   <div class="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
     <!-- Logo and Brand name -->
     <div class="flex items-center space-x-3">
-      <div
-        class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center"
-      >
-        <mat-icon class="text-white text-sm">store</mat-icon>
+      <div class="w-8 h-8 flex items-center justify-center">
+        <!-- <mat-icon class="text-white text-sm">store</mat-icon> -->
       </div>
       <a
         routerLink="home"
-        class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all duration-300 no-underline"
-        >UNIQ store</a
+        class="text-xl font-semibold transition-all duration-300 no-underline"
+        >UNIQ Gallery</a
       >
     </div>
 
     <!-- Navigation & Cart Section -->
     <div class="flex items-center space-x-4">
-      <div class="relative">
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          class="relative bg-gray-100 hover:bg-gray-200 text-gray-700 transition-all duration-200 hover:scale-105 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300"
-        >
-          <mat-icon
-            [matBadge]="itemQuantity"
-            [matBadgeHidden]="!itemQuantity"
-            matBadgeColor="warn"
-            class="text-gray-700 dark:text-gray-300"
-            >shopping_cart</mat-icon
-          >
+      <div
+        class="relative bg-[#e04639] px-6 rounded-3xl hover:bg-gray-200 text-gray-700 transition-all duration-200 hover:scale-105"
+      >
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="relative">
+          <div class="flex gap-1 justify-center items-center">
+            <mat-icon
+              [matBadge]="itemQuantity"
+              [matBadgeHidden]="!itemQuantity"
+              matBadgeColor="warn"
+              class="text-white"
+              >shopping_bag</mat-icon
+            >
+            <span class="text-white">Cart</span>
+          </div>
         </button>
 
         <mat-menu #menu="matMenu" class="mt-2" [overlapTrigger]="false">
