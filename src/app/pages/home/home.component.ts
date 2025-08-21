@@ -30,6 +30,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getProducts();
   }
 
+  getRowHeight(): string {
+    if (this.cols === 1) {
+      return "400px";
+    } else if (this.cols === 4) {
+      return "430px";
+    } else {
+      return "420px";
+    }
+  }
+
   getProducts(): void {
     this.isLoading = true;
 
@@ -78,7 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   getProductBoxClasses(): string {
     const baseClasses =
-      "bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600";
+      "bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden";
 
     if (this.cols === 1) {
       return `${baseClasses} flex flex-row`;

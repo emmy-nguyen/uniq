@@ -1,6 +1,6 @@
 <mat-drawer-container
   [autosize]="true"
-  class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
+  class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100"
 >
   <mat-drawer
     mode="side"
@@ -39,25 +39,33 @@
           *ngIf="isLoading"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
+          <!-- Skeleton -->
           <div
             *ngFor="let skeleton of [1, 2, 3, 4, 5, 6, 7, 8]"
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 animate-pulse dark:bg-gray-800 dark:border-gray-700"
+            class="bg-white shadow-sm border border-gray-100 p-4 animate-pulse"
           >
-            <div
-              class="bg-gray-200 rounded-lg h-48 mb-4 dark:bg-gray-700"
-            ></div>
+            <div class="bg-gray-200 h-48 mb-4"></div>
             <div class="space-y-2">
-              <div class="bg-gray-200 rounded h-4 w-3/4 dark:bg-gray-700"></div>
-              <div class="bg-gray-200 rounded h-4 w-1/2 dark:bg-gray-700"></div>
+              <div class="bg-gray-200 h-4 w-3/4"></div>
+              <div class="bg-gray-200 h-4 w-1/2"></div>
             </div>
           </div>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <h1 class="text-2xl font-semibold">
+            Our <span class="text-[#e04639]">Paintings</span>
+          </h1>
+          <p class="text-sm font-semibold text-gray-600 uppercase">
+            Our Products
+          </p>
         </div>
         <mat-grid-list
           *ngIf="!isLoading"
           gutterSize="16"
           [cols]="cols"
-          [rowHeight]="rowHeight"
-          class="rounded-xl overflow-hidden"
+          [rowHeight]="getRowHeight()"
+          class="overflow-hidden"
         >
           <mat-grid-tile
             *ngFor="let product of products"

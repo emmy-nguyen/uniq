@@ -1,23 +1,77 @@
-<mat-card *ngIf="product" [ngClass]="{ 'text-center': !fullWidthMode }">
-  <div [ngClass]="{ flex: fullWidthMode }">
-    <img
-      class="mb-1 mx-auto h-[200px]"
-      [ngClass]="{ 'h-[200px]': !fullWidthMode, 'h-[360px]': fullWidthMode }"
-      [src]="product.image"
-    />
+<mat-card
+  *ngIf="product"
+  [ngClass]="{
+    'text-center': !fullWidthMode,
+    'h-full': fullWidthMode,
+    'h-auto min-h-[450px]': !fullWidthMode
+  }"
+  class="h-full !overflow-hidden !shadow-lg hover:!shadow-xl !transition-all !duration-300 !border-0 hover:!scale-[1.02] !bg-white !p-0"
+>
+  <div [ngClass]="{ 'flex gap-6': fullWidthMode }">
+    <!-- product image -->
     <div
-      class="w-full"
-      [ngClass]="{ 'px-8 flex flex-col justify-between': fullWidthMode }"
+      class="relative overflow-hidden"
+      [ngClass]="{
+        'flex-shrink-0 w-[600px]': fullWidthMode,
+        'w-full': !fullWidthMode
+      }"
     >
-      <div>
-        <h5>{{ product.category }}</h5>
-        <p class="truncate hover:whitespace-normal">{{ product.title }}</p>
-        <p *ngIf="fullWidthMode">{{ product.description }}</p>
+      <img
+        class="w-full object-cover transition-transform duration-500 group-hover:scale-110 !mb-0"
+        [ngClass]="{
+          'h-[200px]': !fullWidthMode,
+          'h-[360px] w-[600px]': fullWidthMode
+        }"
+        [src]="product.image"
+        [alt]="product.title"
+      />
+    </div>
+
+    <!-- product details -->
+    <div
+      class="!p-6 flex-1 flex flex-col"
+      [ngClass]="{
+        '!px-8 !flex !flex-col !justify-between': fullWidthMode
+      }"
+    >
+      <div class="flex-1">
+        <h5
+          class="!text-[10px] !font-semibold !uppercase !tracking-wide !text-gray-600!mb-2 !border-b border-[#e04639] !px-2 !py-1 !inline-block"
+        >
+          {{ product.category }}
+        </h5>
+
+        <p
+          class="!text-lg !font-bold !text-gray-900 !mb-3 !leading-tight !pt-2"
+          [ngClass]="{
+            '!line-clamp-2': !fullWidthMode,
+            '!line-clamp-none': fullWidthMode
+          }"
+        >
+          {{ product.title }}
+        </p>
+        <p
+          *ngIf="fullWidthMode"
+          class="!text-gray-600 dark:!text-gray-400 !text-sm !mb-4 !leading-relaxed !line-clamp-3"
+        >
+          {{ product.description }}
+        </p>
       </div>
-      <div class="flex justify-between">
-        <span class="text-red-400">{{ product.price | currency }}</span>
-        <button (click)="onAddToCart()">
-          <mat-icon class="text-gray-500">shopping_cart</mat-icon>
+
+      <div class="flex justify-between items-center !mt-4 !pt-4">
+        <div
+          class="flex flex-col"
+          [ngClass]="{ '!items-center': !fullWidthMode }"
+        >
+          <span class="!text-lg !font-semibold !text-gray-500 !mb-1">{{
+            product.price | currency
+          }}</span>
+        </div>
+        <button
+          (click)="onAddToCart()"
+          class="!flex !items-center !justify-center !gap-2 !px-2 !py-2 bg-[#f9c273] !text-white !font-semibold !rounded-full !transition-all !duration-200 hover:!scale-105 hover:!shadow-md !border-0 !min-w-0 group-hover:!animate-pulse"
+        >
+          <mat-icon class="text-white">shopping_bag</mat-icon>
         </button>
       </div>
     </div>

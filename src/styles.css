@@ -9,9 +9,19 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.mat-body p,
+.mat-body-1 p,
+.mat-typography p {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.mat-typography h1,
+.mat-typography h2,
+.mat-typography h3 {
+  font-family: "Playfair Display", serif !important;
+}
 /* Add these custom styles to enhance the Material components */
 
 @layer components {
@@ -151,4 +161,18 @@ body {
     min-width: 280px !important;
     max-width: 90vw !important;
   }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
