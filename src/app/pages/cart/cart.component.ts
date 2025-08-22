@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Cart, CartItem } from "src/app/models/cart.model";
 import { CartService } from "src/app/services/cart.service";
 import { loadStripe } from "@stripe/stripe-js";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-cart",
@@ -67,7 +68,7 @@ export class CartComponent implements OnInit {
   }
   onCheckOut(): void {
     this.http
-      .post("http://localhost:4242/checkout", {
+      .post(`${environment.apiUrl}/checkout`, {
         items: this.cart.items,
       })
       .subscribe(async (res: any) => {
