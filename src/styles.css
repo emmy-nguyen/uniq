@@ -234,3 +234,46 @@ body {
   border-radius: 30px !important;
   box-shadow: none !important;
 }
+
+/* color of quantity in cart */
+.mat-badge-accent .mat-badge-content {
+  background-color: #f59e0b !important;
+  color: white !important;
+}
+
+/* button style in cart page */
+.clear-all-btn {
+  background-color: #e04639 !important;
+  border-radius: 30px !important;
+  box-shadow: none !important;
+}
+
+.checkout-btn {
+  background-color: #f9c273 !important;
+  border-radius: 30px !important;
+  box-shadow: none !important;
+}
+
+/* size remove-item-btn */
+.remove-item-btn {
+  background-color: #f6f6f6 !important;
+  box-shadow: none !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  line-height: 28px !important;
+}
+
+.remove-item-btn mat-icon {
+  font-size: 14px;
+}
+
+.continue-shopping-btn {
+  box-shadow: none !important;
+  background-color: #f6f6f6 !important;
+  border-radius: 30px !important;
+}
+
+.product-table-card {
+  box-shadow: none !important;
+}

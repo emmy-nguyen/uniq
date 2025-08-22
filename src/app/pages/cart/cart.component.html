@@ -1,4 +1,7 @@
-<mat-card class="max-w-7xl mx-auto" *ngIf="cart.items.length">
+<mat-card
+  class="max-w-7xl mx-auto product-table-card"
+  *ngIf="cart.items.length"
+>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
     <ng-container matColumnDef="product">
       <th mat-header-cell *matHeaderCellDef>Product</th>
@@ -6,7 +9,13 @@
         <img src="{{ element.product }}" alt="product" class="w-[100px] my-5" />
       </td>
       <td mat-footer-cell *matFooterCellDef>
-        <button mat-raised-button routerLink="/home">Continue Shopping</button>
+        <button
+          mat-raised-button
+          routerLink="/home"
+          class="continue-shopping-btn transition-all duration-200 hover:scale-105"
+        >
+          Continue Shopping
+        </button>
       </td>
     </ng-container>
 
@@ -56,8 +65,7 @@
       <th mat-header-cell *matHeaderCellDef>
         <button
           mat-raised-button
-          color="warn"
-          class="float-right"
+          class="float-right clear-all-btn text-white transition-all duration-200 hover:scale-105"
           (click)="onClearCart()"
         >
           Clear All
@@ -67,10 +75,9 @@
         <button
           (click)="onRemoveFromCart(element)"
           mat-mini-fab
-          color="warn"
-          class="float-right"
+          class="float-right remove-item-btn transition-all duration-200 hover:scale-105"
         >
-          <mat-icon>close</mat-icon>
+          <mat-icon class="text-gray-700">close</mat-icon>
         </button>
       </td>
       <td mat-footer-cell *matFooterCellDef>
@@ -78,7 +85,7 @@
           (click)="onCheckOut()"
           mat-raised-button
           color="primary"
-          class="float-right"
+          class="float-right checkout-btn transition-all duration-200 hover:scale-105"
         >
           Proceed To Checkout
         </button>
@@ -113,7 +120,7 @@
         <button
           mat-raised-button
           routerLink="/home"
-          class="bg-[#e04639] start-shopping-button text-white font-bold"
+          class="bg-[#e04639] start-shopping-button text-white font-bold hover:scale-105 transition-all duration-200"
         >
           <span class="flex items-center gap-3 p-1.5 md:p-2 md:text-lg text-sm"
             ><mat-icon>home</mat-icon> Start Shopping

@@ -40,18 +40,17 @@
     <!-- Navigation & Cart Section -->
     <div class="flex items-center space-x-4">
       <div
-        class="relative bg-[#e04639] px-6 rounded-3xl hover:bg-[#e04639]/90 transition-all duration-200 hover:scale-105"
+        class="relative bg-[#e04639] px-2 rounded-3xl hover:bg-[#e04639]/90 transition-all duration-200 hover:scale-105"
       >
         <button mat-icon-button [matMenuTriggerFor]="menu" class="relative">
           <div class="flex gap-1 justify-center items-center">
             <mat-icon
               [matBadge]="itemQuantity"
               [matBadgeHidden]="!itemQuantity"
-              matBadgeColor="warn"
+              matBadgeColor="accent"
               class="text-white"
               >shopping_bag</mat-icon
             >
-            <span class="text-white">Cart</span>
           </div>
         </button>
 
@@ -91,7 +90,7 @@
                   Your cart is empty
                 </p>
                 <p class="text-gray-400 text-xs mt-1 dark:text-gray-500">
-                  Add some products to get started
+                  Add some products to get started!
                 </p>
               </div>
 
@@ -99,15 +98,10 @@
                 *ngIf="cart.items.length"
                 class="divide-y divide-gray-100 dark:divide-gray-700"
               >
-                <div
-                  *ngFor="let item of cart.items"
-                  class="px-4 py-3 hover:bg-gray-50 transition-colors dark:hover:bg-gray-800"
-                >
+                <div *ngFor="let item of cart.items" class="px-4 py-3">
                   <div class="flex items-center justify-between">
                     <div class="flex-1 min-w-0">
-                      <p
-                        class="text-sm font-medium text-gray-900 truncate dark:text-white"
-                      >
+                      <p class="text-sm font-medium text-gray-900 truncate">
                         {{ item.name }}
                       </p>
                       <p class="text-xs text-gray-500 dark:text-gray-400">
@@ -115,9 +109,7 @@
                       </p>
                     </div>
                     <div class="ml-4 flex items-center space-x-2">
-                      <span
-                        class="text-sm font-bold text-gray-900 dark:text-white"
-                      >
+                      <span class="text-sm font-bold text-gray-900">
                         {{ item.price | currency }}
                       </span>
                     </div>
@@ -129,15 +121,12 @@
             <!-- Cart Footer -->
             <div
               *ngIf="cart.items.length"
-              class="border-t border-gray-100 dark:border-gray-700 flex-shrink-0"
+              class="border-t border-gray-100 flex-shrink-0"
             >
-              <div class="px-4 py-3 bg-gray-50 dark:bg-gray-800">
+              <div class="px-4 py-3 bg-red-50">
                 <div class="flex items-center justify-between">
-                  <span
-                    class="text-sm font-medium text-gray-900 dark:text-white"
-                    >Total:</span
-                  >
-                  <span class="text-lg font-bold text-gray-900 dark:text-white">
+                  <span class="text-sm font-medium text-gray-900">Total:</span>
+                  <span class="text-lg font-bold text-gray-900">
                     {{ getTotal(cart.items) | currency }}
                   </span>
                 </div>
@@ -161,9 +150,8 @@
 
                 <button
                   routerLink="cart"
-                  class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+                  class="flex-1 bg-[#e04639] text-white font-medium py-2.5 px-2 rounded-lg transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
                 >
-                  <mat-icon class="text-sm">shopping_cart_checkout</mat-icon>
                   <span>Checkout</span>
                 </button>
               </div>
