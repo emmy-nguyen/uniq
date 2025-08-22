@@ -9,7 +9,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(cors({ origin: true, credentials: true }));
 
-const YOUR_DOMAIN = "http://localhost:4242";
+const YOUR_DOMAIN = process.env.STRIPE_SERVER_DOMAIN || "http://localhost:4242";
 
 app.post("/checkout", async (req, res, next) => {
   try {
