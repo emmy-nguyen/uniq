@@ -1,0 +1,163 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.body-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 30px 10px 30px;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: black;
+}
+
+.logo-svg-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.back-to-home {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+.back-to-home:hover {
+  color: #e04639;
+}
+
+.thank-you-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-out-icon {
+  color: #28a745;
+}
+
+.thank-you-text {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.detail-text {
+  font-size: 18px;
+  margin: 0px 0px 0px 0px;
+}
+
+/* back to home */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-to-home {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.arrow-icon {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 10px 15px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .body-wrapper {
+    gap: 30px;
+  }
+
+  .thank-you-text {
+    font-size: 20px;
+  }
+
+  .detail-text {
+    font-size: 16px;
+  }
+
+  .logo-svg-wrapper {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .back-to-home {
+    font-size: 14px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .header-wrapper {
+    margin: 5px 10px;
+  }
+
+  .logo-text {
+    font-size: 0.9rem;
+  }
+
+  .thank-you-text {
+    font-size: 18px;
+  }
+
+  .detail-text {
+    font-size: 14px;
+  }
+
+  .logo-svg-wrapper {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .back-to-home {
+    font-size: 12px;
+  }
+}
+
+.cancel-icon {
+  color: #dc3545;
+}
