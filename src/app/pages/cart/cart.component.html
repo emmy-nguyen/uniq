@@ -1,6 +1,7 @@
+<!-- Desktop/Tablet table view -->
 <mat-card
   class="max-w-7xl mx-auto product-table-card"
-  *ngIf="cart.items.length"
+  *ngIf="cart.items.length && (isTablet || isDesktop)"
 >
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
     <ng-container matColumnDef="product">
@@ -101,19 +102,36 @@
 <!-- Empty Cart State -->
 <mat-card
   class="max-w-4xl mx-auto my-8 overflow-hidden empty-state"
+  [class.mx-4]="isMobile"
   *ngIf="!cart.items.length"
 >
   <div class="text-center py-16 px-8 md:py-20 md:px-12 relative">
     <div class="relative z-10 space-y-6">
       <div
         class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center"
+        [class.w-12]="isMobile"
+        [class.h-12]="isMobile"
       >
-        <mat-icon class="text-gray-400 text-2xl"
-          >shopping_cart_checkout</mat-icon
+        <mat-icon
+          class="text-gray-400"
+          [class.text-2xl]="!isMobile"
+          [class.text-xl]="isMobile"
         >
+          shopping_cart_checkout
+        </mat-icon>
       </div>
-      <p class="text-gray-500 md:text-lg text-sm">Your cart is empty</p>
-      <p class="text-gray-400 md:text-sm mt-1 text-xs">
+      <p
+        class="text-gray-500"
+        [class.text-lg]="!isMobile"
+        [class.text-base]="isMobile"
+      >
+        Your cart is empty
+      </p>
+      <p
+        class="text-gray-400 mt-1"
+        [class.text-sm]="!isMobile"
+        [class.text-xs]="isMobile"
+      >
         Start adding masterpieces to your collection!
       </p>
       <div class="pt-6">
@@ -122,14 +140,147 @@
           routerLink="/home"
           class="bg-[#e04639] start-shopping-button text-white font-bold hover:scale-105 transition-all duration-200"
         >
-          <span class="flex items-center gap-3 p-1.5 md:p-2 md:text-lg text-sm"
-            ><mat-icon>home</mat-icon> Start Shopping
+          <span
+            class="flex items-center gap-3"
+            [class.p-2]="!isMobile"
+            [class.text-lg]="!isMobile"
+            [class.p-1.5]="isMobile"
+            [class.text-sm]="isMobile"
+          >
+            <mat-icon>home</mat-icon>
+            Start Shopping
           </span>
         </button>
       </div>
     </div>
   </div>
 </mat-card>
+
+<!-- Mobile card view -->
+<div class="px-4 py-4" *ngIf="cart.items.length && isMobile">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4">
+    <p class="text-xl font-semibold text-gray-800 !mb-0">Shopping Cart</p>
+    <button
+      mat-icon-button
+      (click)="onClearCart()"
+      class="text-gray-400 hover:bg-red-50 transition-colors"
+      matTooltip="Clear All"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+
+  <!-- Cart items-->
+  <div class="flex-1 overflow-y-auto px-4 py-4 min-h-0">
+    <div class="min-h-full flex flex-col">
+      <div class="space-y-4 mb-6">
+        <mat-card
+          *ngFor="let item of cart.items"
+          class="!shadow-md hover:!shadow-lg transition-all duration-300 overflow-hidden"
+        >
+          <div class="p-4">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <img
+                  [src]="item.product"
+                  [alt]="item.name"
+                  class="w-20 h-20 object-cover rounded-lg bg-gray-100"
+                />
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <p class="font-medium text-gray-900 text-sm mb-1 line-clamp-2">
+                  {{ item.name }}
+                </p>
+                <p class="text-lg font-bold text-[#e04639] mb-2">
+                  {{ item.price | currency }}
+                </p>
+
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center !bg-gray-100 !rounded-full">
+                    <!-- - button -->
+                    <button
+                      (click)="onRemoveQuantity(item)"
+                      mat-icon-button
+                      class="!w-8 !h-8 !text-gray-600 !flex !items-center"
+                    >
+                      <mat-icon class="text-sm !ml-2">remove</mat-icon>
+                    </button>
+                    <span
+                      class="px-3 py-1 font-medium min-w-[2rem] text-center"
+                      >{{ item.quantity }}</span
+                    >
+                    <!-- + button -->
+                    <button
+                      (click)="onAddQuantity(item)"
+                      mat-icon-button
+                      class="!w-8 !h-8 !text-gray-600 !flex !items-center"
+                    >
+                      <mat-icon class="text-sm">add</mat-icon>
+                    </button>
+                  </div>
+
+                  <!-- remove each item -->
+                  <button
+                    (click)="onRemoveFromCart(item)"
+                    mat-icon-button
+                    class="!text-[#e04639]"
+                    matTooltip="Remove item"
+                  >
+                    <mat-icon class="text-sm">close</mat-icon>
+                  </button>
+                </div>
+
+                <!-- Item total -->
+                <!-- <div class="mt-2 text-right">
+              <span class="text-sm text-gray-500">Total: </span>
+              <span class="font-bold text-gray-900">{{
+                item.quantity * item.price | currency
+              }}</span>
+            </div> -->
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="flex-grow min-h-[200px]"></div>
+    </div>
+  </div>
+
+  <!-- Mobile summary & actions-->
+  <div
+    class="sticky bottom-0 bg-white border-t border-gray-200 p-4 -mx-4 -mb-4 shadow-lg"
+  >
+    <div
+      class="flex justify-between items-center mb-4 pb-4 border-b border-gray-100"
+    >
+      <span class="text-lg font-medium text-gray-900">Total:</span>
+      <span class="text-2xl font-bold text-[#e04639]">
+        {{ getTotal(cart.items) | currency }}
+      </span>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="space-y-3">
+      <button
+        (click)="onCheckOut()"
+        mat-raised-button
+        class="!rounded-full !text-sm w-full !bg-[#e04639] !text-white !font-bold !py-3 hover:!scale-[1.02] transition-all duration-200"
+      >
+        Proceed To Checkout
+      </button>
+      <button
+        routerLink="/home"
+        mat-stroked-button
+        class="w-full !rounded-full !border-gray-300 !text-gray-700 !font-medium !py-2 hover:!bg-gray-50 transition-all duration-200"
+      >
+        <mat-icon class="mr-2">arrow_back</mat-icon>
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+</div>
 
 <style>
   /* Custom animations */

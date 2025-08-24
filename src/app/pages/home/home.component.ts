@@ -41,7 +41,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.setupResponsiveBreakpoints();
     this.getProducts();
   }
-
+  // forceShowToggle(): void {
+  //   this.isMobile = true;
+  //   this.isTablet = false;
+  //   this.isDesktop = false;
+  //   this.showDrawerToggle = true;
+  //   this.drawerOpened = false;
+  //   this.drawerMode = "over";
+  //   this.cols = 1;
+  //   this.updateRowHeight();
+  //   console.log("Forced mobile mode:", {
+  //     isMobile: this.isMobile,
+  //     showDrawerToggle: this.showDrawerToggle,
+  //     drawerMode: this.drawerMode,
+  //   });
+  // }
   private setupResponsiveBreakpoints(): void {
     const mobileBreakpoint = "(max-width: 767px)";
     const tabletBreakpoint = "(min-width: 768px) and (max-width: 1023px)";
@@ -53,6 +67,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.isMobile = this.breakpointObserver.isMatched(mobileBreakpoint);
         this.isTablet = this.breakpointObserver.isMatched(tabletBreakpoint);
         this.isDesktop = this.breakpointObserver.isMatched(desktopBreakpoint);
+
+        console.log("Breakpoint changed:", {
+          isMobile: this.isMobile,
+          isTablet: this.isTablet,
+          isDesktop: this.isDesktop,
+          showDrawerToggle: this.showDrawerToggle,
+        });
 
         if (this.isMobile) {
           this.handleMobileLayout();

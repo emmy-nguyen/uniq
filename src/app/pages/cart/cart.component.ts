@@ -1,9 +1,11 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { BreakpointObserver } from "@angular/cdk/layout";
 import { Cart, CartItem } from "src/app/models/cart.model";
 import { CartService } from "src/app/services/cart.service";
 import { loadStripe } from "@stripe/stripe-js";
 import { environment } from "src/environments/environment";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-cart",
@@ -11,24 +13,7 @@ import { environment } from "src/environments/environment";
 })
 export class CartComponent implements OnInit {
   cart: Cart = {
-    items: [
-      {
-        product:
-          "https://plus.unsplash.com/premium_photo-1753820185677-ab78a372b033?q=80&w=732&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        name: "Sneaker",
-        price: 150,
-        quantity: 1,
-        id: 1,
-      },
-      {
-        product:
-          "https://plus.unsplash.com/premium_photo-1753820185677-ab78a372b033?q=80&w=732&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        name: "Running Shoes",
-        price: 150,
-        quantity: 3,
-        id: 2,
-      },
-    ],
+    items: [],
   };
   dataSource: Array<CartItem> = [];
   displayedColumns: Array<string> = [
@@ -39,11 +24,65 @@ export class CartComponent implements OnInit {
     "total",
     "action",
   ];
-  constructor(private cartService: CartService, private http: HttpClient) {}
+
+  isMobile = false;
+  isTablet = false;
+  isDesktop = true;
+  private breakpointSubscription: Subscription | undefined;
+
+  constructor(
+    private cartService: CartService,
+    private http: HttpClient,
+    private breakpointObserver: BreakpointObserver
+  ) {}
 
   ngOnInit(): void {
+    this.setupResponsiveBreakpoints();
+    this.setupCartSubscription();
     // update cart
     // TODO: Local storage
+    // this.cartService.cart.subscribe((_cart: Cart) => {
+    //   this.cart = _cart;
+    //   this.dataSource = this.cart.items;
+    // });
+  }
+
+  private setupResponsiveBreakpoints(): void {
+    const mobileBreakpoint = "(max-width: 767px)";
+    const tabletBreakpoint = "(min-width: 768px) and (max-width: 1023px)";
+    const desktopBreakpoint = "(min-width: 1024px)";
+
+    this.isMobile = this.breakpointObserver.isMatched(mobileBreakpoint);
+    this.isTablet = this.breakpointObserver.isMatched(tabletBreakpoint);
+    this.isDesktop = this.breakpointObserver.isMatched(desktopBreakpoint);
+    this.breakpointSubscription = this.breakpointObserver
+      .observe([mobileBreakpoint, tabletBreakpoint, desktopBreakpoint])
+      .subscribe(() => {
+        this.isMobile = this.breakpointObserver.isMatched(mobileBreakpoint);
+        this.isTablet = this.breakpointObserver.isMatched(tabletBreakpoint);
+        this.isDesktop = this.breakpointObserver.isMatched(desktopBreakpoint);
+        if (this.isTablet) {
+          this.displayedColumns = [
+            "product",
+            "name",
+            "quantity",
+            "total",
+            "action",
+          ];
+        } else {
+          this.displayedColumns = [
+            "product",
+            "name",
+            "price",
+            "quantity",
+            "total",
+            "action",
+          ];
+        }
+      });
+  }
+
+  private setupCartSubscription(): void {
     this.cartService.cart.subscribe((_cart: Cart) => {
       this.cart = _cart;
       this.dataSource = this.cart.items;
@@ -79,5 +118,19 @@ export class CartComponent implements OnInit {
           sessionId: res.id,
         });
       });
+  }
+
+  getContainerClasses(): string {
+    return this.isMobile
+      ? "px-4 py-4"
+      : this.isTablet
+      ? "px-6 py-6"
+      : "px-8 py-8";
+  }
+
+  getCardClasses(): string {
+    const baseClasses =
+      "!shadow-md hover:!shadow-lg transition-all duration-300 overflow-hidden";
+    return this.isMobile ? `${baseClasses} !mb-4` : baseClasses;
   }
 }

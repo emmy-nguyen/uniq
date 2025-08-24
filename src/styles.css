@@ -277,3 +277,6 @@ body {
 .product-table-card {
   box-shadow: none !important;
 }
+.mobile-toggle-debug {
+  z-index: 999 !important;
+}
