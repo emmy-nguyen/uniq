@@ -1,12 +1,23 @@
 <mat-expansion-panel
   *ngIf="categories"
-  class="my-4 mx-0 md:mx-2 overflow-hidden border"
+  class="my-4 mx-0 overflow-hidden border"
+  [class.md:mx-2]="!isMobile"
+  [expanded]="isMobile"
 >
   <mat-expansion-panel-header
-    class="bg-transparent text-yellow-700 min-h-14 md:min-h-12 sm:min-h-11 px-4 md:px-3 sm:px-2"
+    class="bg-transparent text-yellow-700 px-4 py-3"
+    [class.min-h-14]="!isMobile"
+    [class.min-h-12]="!isMobile"
+    [class.md:px-3]="!isMobile"
+    [class.sm:px-2]="!isMobile"
   >
     <mat-panel-title
-      class="flex items-center gap-2 font-semibold text-yellow-700 text-lg tracking-wide md:text-base sm:text-sm sm:gap-1.5"
+      class="flex items-center gap-2 font-semibold text-yellow-700 text-lg tracking-wide"
+      [class.text-lg]="!isMobile"
+      [class.md:text-base]="!isMobile"
+      [class.text-base]="isMobile"
+      [class.sm:text-sm]="!isMobile"
+      [class.sm:gap-1.5]="!isMobile"
     >
       CATEGORIES
     </mat-panel-title>
@@ -14,10 +25,14 @@
 
   <mat-selection-list
     [multiple]="false"
-    class="max-h-72 md:max-h-60 sm:max-h-48 overflow-y-auto py-2"
+    class="overflow-y-auto py-2"
+    [class.max-h-72]="!isMobile"
+    [class.max-h-96]="isMobile"
+    [class.md:max-h-60]="!isMobile"
+    [class.sm:max-h-48]="!isMobile"
     [disableRipple]="true"
   >
-    <mat-list-option
+    <!-- <mat-list-option
       *ngFor="let category of categories"
       [value]="category"
       class="rounded-full border-b border-gray-100 last:border-b-0"
@@ -25,6 +40,65 @@
       <button
         (click)="onShowCategory(category)"
         class="w-full text-left p-3 md:p-3.5 sm:p-4 mx-2 md:mx-1 sm:mx-0.5 border-none text-sm font-medium !bg-transparent !shadow-none text-gray-700 rounded-full hover:text-yellow-700 md:text-base sm:text-sm"
+        mat-button
+      >
+        {{ category }}
+      </button>
+    </mat-list-option> -->
+
+    <mat-list-option value="" class="rounded-full border-b border-gray-100">
+      <button
+        (click)="onShowCategory('')"
+        class="w-full text-left border-none font-medium !bg-transparent !shadow-none rounded-full transition-colors duration-200"
+        [class.p-3]="!isMobile"
+        [class.md:p-3.5]="!isMobile"
+        [class.p-4]="isMobile"
+        [class.mx-2]="!isMobile"
+        [class.md:mx-1]="!isMobile"
+        [class.mx-0]="isMobile"
+        [class.sm:mx-0.5]="!isMobile"
+        [class.text-sm]="!isMobile"
+        [class.md:text-base]="!isMobile"
+        [class.text-base]="isMobile"
+        [class.sm:text-sm]="!isMobile"
+        [class.text-yellow-700]="selectedCategory === '' || !selectedCategory"
+        [class.bg-yellow-50]="selectedCategory === '' || !selectedCategory"
+        [class.text-gray-700]="selectedCategory !== '' && selectedCategory"
+        [class.hover:text-yellow-700]="
+          selectedCategory !== '' && selectedCategory
+        "
+        [class.hover:bg-gray-50]="selectedCategory !== '' && selectedCategory"
+        mat-button
+      >
+        All Categories
+      </button>
+    </mat-list-option>
+
+    <!-- Individual categories -->
+    <mat-list-option
+      *ngFor="let category of categories"
+      [value]="category"
+      class="rounded-full border-b border-gray-100 last:border-b-0"
+    >
+      <button
+        (click)="onShowCategory(category)"
+        class="w-full text-left border-none font-medium !bg-transparent !shadow-none rounded-full transition-colors duration-200"
+        [class.p-3]="!isMobile"
+        [class.md:p-3.5]="!isMobile"
+        [class.p-4]="isMobile"
+        [class.mx-2]="!isMobile"
+        [class.md:mx-1]="!isMobile"
+        [class.mx-0]="isMobile"
+        [class.sm:mx-0.5]="!isMobile"
+        [class.text-sm]="!isMobile"
+        [class.md:text-base]="!isMobile"
+        [class.text-base]="isMobile"
+        [class.sm:text-sm]="!isMobile"
+        [class.text-yellow-700]="selectedCategory === category"
+        [class.bg-yellow-50]="selectedCategory === category"
+        [class.text-gray-700]="selectedCategory !== category"
+        [class.hover:text-yellow-700]="selectedCategory !== category"
+        [class.hover:bg-gray-50]="selectedCategory !== category"
         mat-button
       >
         {{ category }}

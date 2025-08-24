@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
@@ -13,9 +14,13 @@ import { StoreService } from "src/app/services/store.service";
   templateUrl: "./filters.component.html",
 })
 export class FiltersComponent implements OnInit, OnDestroy {
+  @Input() isMobile = false;
   @Output() showCategory = new EventEmitter<string>();
+
   categoriesSubcription: Subscription | undefined;
   categories: Array<string> | undefined;
+  selectedCategory: string | undefined;
+
   constructor(private storeService: StoreService) {}
 
   ngOnInit(): void {
@@ -27,6 +32,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   onShowCategory(category: string): void {
+    this.selectedCategory = category;
     this.showCategory.emit(category);
   }
   ngOnDestroy(): void {

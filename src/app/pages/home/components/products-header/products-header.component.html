@@ -1,39 +1,160 @@
-<mat-card class="mb-4 sort-card border">
-  <div class="flex justify-between">
-    <div>
-      <button mat-button [matMenuTriggerFor]="sortByMenu">
-        Sort by {{ sort }}
-        <mat-icon>expand_more</mat-icon>
-      </button>
-      <mat-menu #sortByMenu="matMenu">
-        <button (click)="onSortUpdated('desc')" mat-menu-item>desc</button>
-        <button (click)="onSortUpdated('asc')" mat-menu-item>asc</button>
-      </mat-menu>
+<mat-card class="mb-4 sort-card border overflow-hidden">
+  <div
+    class="flex justify-between items-center flex-wrap gap-4"
+    [class.flex-col]="isMobile"
+    [class.items-start]="isMobile"
+    [class.p-4]="isMobile"
+    [class.p-6]="!isMobile"
+  >
+    <!-- Left side: Sort and mobile view toggle -->
+    <div
+      class="flex items-center gap-4 flex-wrap"
+      [class.w-full]="isMobile"
+      [class.justify-between]="isMobile"
+    >
+      <div class="flex items-center">
+        <button
+          mat-button
+          [matMenuTriggerFor]="sortByMenu"
+          class="transition-colors duration-200"
+          [class.text-sm]="isMobile"
+        >
+          Sort by {{ sort }}
+          <mat-icon [class.text-sm]="isMobile">expand_more</mat-icon>
+        </button>
+        <mat-menu #sortByMenu="matMenu">
+          <button (click)="onSortUpdated('desc')" mat-menu-item>
+            <mat-icon>arrow_downward</mat-icon>
+            <span class="ml-2">Descending</span>
+          </button>
+          <button (click)="onSortUpdated('asc')" mat-menu-item>
+            <mat-icon>arrow_upward</mat-icon>
+            <span class="ml-2">Ascending</span>
+          </button>
+        </mat-menu>
+      </div>
+
+      <!-- Mobile toggle -->
+
+      <div *ngIf="isMobile" class="flex items-center">
+        <button
+          (click)="toggleMobileView()"
+          mat-stroked-button
+          class="text-xs px-3 py-2 rounded-lg transition-all duration-200"
+        >
+          <mat-icon class="mr-1 text-sm">
+            {{ currentCols === 1 ? "grid_view" : "view_agenda" }}
+          </mat-icon>
+          {{ currentCols === 1 ? "Grid" : "List" }}
+        </button>
+      </div>
     </div>
 
-    <div class="flex items-center">
-      <div>
-        <button mat-button [matMenuTriggerFor]="menu">
+    <!-- Right side: Items count and column controls -->
+    <div
+      class="flex items-center gap-4 flex-wrap"
+      [class.w-full]="isMobile"
+      [class.justify-between]="isMobile && !isDesktop"
+    >
+      <!-- Items count dropdown - Hide on mobile to save space -->
+      <div *ngIf="!isMobile" class="flex items-center">
+        <button
+          mat-button
+          [matMenuTriggerFor]="menu"
+          class="transition-colors duration-200"
+        >
           Show {{ itemsShowCount }}
           <mat-icon>expand_more</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="onItemsUpdated(12)" mat-menu-item>12</button>
-          <button (click)="onItemsUpdated(24)" mat-menu-item>24</button>
-          <button (click)="onItemsUpdated(36)" mat-menu-item>36</button>
+          <button (click)="onItemsUpdated(12)" mat-menu-item>
+            <span>12 items</span>
+          </button>
+          <button (click)="onItemsUpdated(24)" mat-menu-item>
+            <span>24 items</span>
+          </button>
+          <button (click)="onItemsUpdated(36)" mat-menu-item>
+            <span>36 items</span>
+          </button>
         </mat-menu>
       </div>
 
-      <!-- show items in 1-3-4 rows -->
-      <button (click)="onColumnsUpdated(1)">
-        <mat-icon>view_list</mat-icon>
-      </button>
-      <button (click)="onColumnsUpdated(3)">
-        <mat-icon>view_module</mat-icon>
-      </button>
-      <button (click)="onColumnsUpdated(4)">
-        <mat-icon>view_comfy</mat-icon>
-      </button>
+      <!-- Column layout buttons - Desktop only -->
+      <div
+        *ngIf="isDesktop"
+        class="flex items-center gap-1 bg-gray-50 rounded-lg p-1 border"
+      >
+        <button
+          (click)="onColumnsUpdated(1)"
+          mat-icon-button
+          class="transition-all duration-200 rounded-md"
+          [class.bg-[#e04639]]="currentCols === 1"
+          [class.text-white]="currentCols === 1"
+          [class.hover:bg-gray-200]="currentCols !== 1"
+          [class.text-gray-600]="currentCols !== 1"
+          matTooltip="List view"
+        >
+          <mat-icon>view_list</mat-icon>
+        </button>
+
+        <button
+          (click)="onColumnsUpdated(3)"
+          mat-icon-button
+          class="transition-all duration-200 rounded-md"
+          [class.bg-[#e04639]]="currentCols === 3"
+          [class.text-white]="currentCols === 3"
+          [class.hover:bg-gray-200]="currentCols !== 3"
+          [class.text-gray-600]="currentCols !== 3"
+          matTooltip="3 columns"
+        >
+          <mat-icon>view_module</mat-icon>
+        </button>
+
+        <button
+          (click)="onColumnsUpdated(4)"
+          mat-icon-button
+          class="transition-all duration-200 rounded-md"
+          [class.bg-[#e04639]]="currentCols === 4"
+          [class.text-white]="currentCols === 4"
+          [class.hover:bg-gray-200]="currentCols !== 4"
+          [class.text-gray-600]="currentCols !== 4"
+          matTooltip="4 columns"
+        >
+          <mat-icon>view_comfy</mat-icon>
+        </button>
+      </div>
+
+      <!-- Tablet-specific controls -->
+      <div
+        *ngIf="isTablet && !isDesktop"
+        class="flex items-center gap-1 bg-gray-50 rounded-lg p-1 border"
+      >
+        <button
+          (click)="onColumnsUpdated(1)"
+          mat-icon-button
+          class="transition-all duration-200 rounded-md"
+          [class.bg-[#e04639]]="currentCols === 1"
+          [class.text-white]="currentCols === 1"
+          [class.hover:bg-gray-200]="currentCols !== 1"
+          [class.text-gray-600]="currentCols !== 1"
+          matTooltip="List view"
+        >
+          <mat-icon>view_list</mat-icon>
+        </button>
+
+        <button
+          (click)="onColumnsUpdated(2)"
+          mat-icon-button
+          class="transition-all duration-200 rounded-md"
+          [class.bg-[#e04639]]="currentCols === 2"
+          [class.text-white]="currentCols === 2"
+          [class.hover:bg-gray-200]="currentCols !== 2"
+          [class.text-gray-600]="currentCols !== 2"
+          matTooltip="2 columns"
+        >
+          <mat-icon>view_module</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </mat-card>

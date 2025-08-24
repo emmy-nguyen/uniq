@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { LayoutModule } from "@angular/cdk/layout";
 
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -40,6 +41,7 @@ import { HttpClientModule } from "@angular/common/http";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    LayoutModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatGridListModule,

@@ -1,17 +1,21 @@
-<mat-toolbar
-  class="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/60 sticky top-0 z-50 transition-all duration-300"
->
-  <div class="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
+<mat-toolbar [class]="getToolbarClasses()">
+  <div [class]="getContainerClasses()">
     <!-- Logo and Brand name -->
-    <div class="flex items-center space-x-3">
-      <div class="w-10 h-10 flex items-center justify-center">
+    <div [class]="getLogoClasses()">
+      <div
+        class="flex items-center justify-center"
+        [class.w-10]="!isMobile"
+        [class.h-10]="!isMobile"
+        [class.w-8]="isMobile"
+        [class.h-8]="isMobile"
+      >
         <svg
           id="logo-14"
-          width="73"
-          height="49"
           viewBox="0 0 73 49"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          [attr.width]="isMobile ? '58' : '73'"
+          [attr.height]="isMobile ? '39' : '49'"
         >
           <path
             d="M46.8676 24C46.8676 36.4264 36.794 46.5 24.3676 46.5C11.9413 46.5 1.86765 36.4264 1.86765 24C1.86765 11.5736 11.9413 1.5 24.3676 1.5C36.794 1.5 46.8676 11.5736 46.8676 24Z"
@@ -30,86 +34,146 @@
           ></path>
         </svg>
       </div>
-      <a
-        routerLink="home"
-        class="text-xl font-semibold transition-all duration-300 no-underline"
-        >UNIQ GALLERY</a
-      >
+      <a routerLink="home" [class]="getBrandTextClasses()">
+        <span *ngIf="!isMobile">UNIQ GALLERY</span>
+        <span *ngIf="isMobile">UNIQ</span>
+      </a>
     </div>
 
     <!-- Navigation & Cart Section -->
     <div class="flex items-center space-x-4">
       <div
-        class="relative bg-[#e04639] px-2 rounded-3xl hover:bg-[#e04639]/90 transition-all duration-200 hover:scale-105"
+        class="relative bg-[#e04639] rounded-3xl hover:bg-[#e04639]/90 transition-all duration-200 hover:scale-105"
+        [class.px-2]="!isMobile"
+        [class.px-1.5]="isMobile"
       >
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="relative">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          class="relative"
+          [class.w-12]="isMobile"
+          [class.h-12]="isMobile"
+        >
           <div class="flex gap-1 justify-center items-center">
             <mat-icon
               [matBadge]="itemQuantity"
               [matBadgeHidden]="!itemQuantity"
               matBadgeColor="accent"
               class="text-white"
-              >shopping_bag</mat-icon
+              [class.text-lg]="isMobile"
             >
+              shopping_bag
+            </mat-icon>
           </div>
         </button>
 
         <mat-menu #menu="matMenu" class="mt-2" [overlapTrigger]="false">
-          <div class="w-80 flex flex-col" style="max-height: min(80vh, 32rem)">
+          <div [class]="getCartMenuClasses()">
+            <!-- Cart header -->
             <div
-              class="bg-gradient-to-r from-red-50 to-red-50 px-4 py-3 border-b border-gray-100 flex-shrink-0"
+              class="bg-gradient-to-r from-red-50 to-red-50 border-b border-gray-100 flex-shrink-0"
+              [class.px-4]="!isMobile"
+              [class.py-3]="!isMobile"
+              [class.px-3]="isMobile"
+              [class.py-2]="isMobile"
             >
               <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
-                  <mat-icon class="text-[#e04639]">shopping_bag</mat-icon>
-                  <span class="font-semibold text-gray-900"
-                    >{{ itemQuantity }}
-                    {{ itemQuantity === 1 ? "item" : "items" }}</span
+                  <mat-icon class="text-[#e04639]" [class.text-lg]="isMobile"
+                    >shopping_bag</mat-icon
                   >
+                  <span
+                    class="font-semibold text-gray-900"
+                    [class.text-sm]="isMobile"
+                  >
+                    {{ itemQuantity }}
+                    {{ itemQuantity === 1 ? "item" : "items" }}
+                  </span>
                 </div>
                 <a
                   routerLink="cart"
-                  class="text-sm font-medium text-[#e04639] hover:[#e04639] transition-colors no-underline"
+                  class="font-medium text-[#e04639] hover:[#e04639] transition-colors no-underline"
+                  [class.text-sm]="!isMobile"
+                  [class.text-xs]="isMobile"
                 >
-                  View Cart</a
-                >
+                  View Cart
+                </a>
               </div>
             </div>
 
-            <!-- Cart Items - Flexible scrollable area -->
+            <!-- Cart Items - Scrollable area -->
             <div class="flex-1 overflow-y-auto min-h-0">
-              <div *ngIf="!cart.items.length" class="px-4 py-8 text-center">
+              <!-- Empty state -->
+              <div
+                *ngIf="!cart.items.length"
+                class="text-center"
+                [class.px-4]="!isMobile"
+                [class.py-8]="!isMobile"
+                [class.px-3]="isMobile"
+                [class.py-6]="isMobile"
+              >
                 <div
-                  class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center"
+                  class="mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center"
+                  [class.w-16]="!isMobile"
+                  [class.h-16]="!isMobile"
+                  [class.w-12]="isMobile"
+                  [class.h-12]="isMobile"
                 >
-                  <mat-icon class="text-gray-400 text-2xl"
-                    >shopping_cart_checkout</mat-icon
+                  <mat-icon
+                    class="text-gray-400"
+                    [class.text-2xl]="!isMobile"
+                    [class.text-xl]="isMobile"
                   >
+                    shopping_cart_checkout
+                  </mat-icon>
                 </div>
-                <p class="text-gray-500 text-sm dark:text-gray-400">
+                <p
+                  class="text-gray-500"
+                  [class.text-sm]="!isMobile"
+                  [class.text-xs]="isMobile"
+                >
                   Your cart is empty
                 </p>
-                <p class="text-gray-400 text-xs mt-1 dark:text-gray-500">
+                <p
+                  class="text-gray-400 mt-1"
+                  [class.text-xs]="!isMobile"
+                  [class.text-2xs]="isMobile"
+                >
                   Add some products to get started!
                 </p>
               </div>
 
-              <div
-                *ngIf="cart.items.length"
-                class="divide-y divide-gray-100 dark:divide-gray-700"
-              >
-                <div *ngFor="let item of cart.items" class="px-4 py-3">
+              <!-- Cart items -->
+              <div *ngIf="cart.items.length" class="divide-y divide-gray-100">
+                <div
+                  *ngFor="let item of cart.items"
+                  class="py-3"
+                  [class.px-4]="!isMobile"
+                  [class.px-3]="isMobile"
+                >
                   <div class="flex items-center justify-between">
                     <div class="flex-1 min-w-0">
-                      <p class="text-sm font-medium text-gray-900 truncate">
+                      <p
+                        class="font-medium text-gray-900 truncate"
+                        [class.text-sm]="!isMobile"
+                        [class.text-xs]="isMobile"
+                      >
                         {{ item.name }}
                       </p>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">
+                      <p
+                        class="text-gray-500"
+                        [class.text-xs]="!isMobile"
+                        [class.text-2xs]="isMobile"
+                      >
                         Quantity: {{ item.quantity }}
                       </p>
                     </div>
                     <div class="ml-4 flex items-center space-x-2">
-                      <span class="text-sm font-bold text-gray-900">
+                      <span
+                        class="font-bold text-gray-900"
+                        [class.text-sm]="!isMobile"
+                        [class.text-xs]="isMobile"
+                      >
                         {{ item.price | currency }}
                       </span>
                     </div>
@@ -123,26 +187,53 @@
               *ngIf="cart.items.length"
               class="border-t border-gray-100 flex-shrink-0"
             >
-              <div class="px-4 py-3 bg-red-50">
+              <!-- Total -->
+              <div
+                class="bg-red-50"
+                [class.px-4]="!isMobile"
+                [class.py-3]="!isMobile"
+                [class.px-3]="isMobile"
+                [class.py-2]="isMobile"
+              >
                 <div class="flex items-center justify-between">
-                  <span class="text-sm font-medium text-gray-900">Total:</span>
-                  <span class="text-lg font-bold text-gray-900">
+                  <span
+                    class="font-medium text-gray-900"
+                    [class.text-sm]="!isMobile"
+                    [class.text-xs]="isMobile"
+                  >
+                    Total:
+                  </span>
+                  <span
+                    class="font-bold text-gray-900"
+                    [class.text-lg]="!isMobile"
+                    [class.text-base]="isMobile"
+                  >
                     {{ getTotal(cart.items) | currency }}
                   </span>
                 </div>
               </div>
 
-              <!-- Action -->
+              <!-- Actions -->
               <div
-                class="px-4 py-3 flex items-center justify-between space-x-3"
+                class="flex items-center justify-between space-x-3"
+                [class.px-4]="!isMobile"
+                [class.py-3]="!isMobile"
+                [class.px-3]="isMobile"
+                [class.py-2]="isMobile"
               >
                 <button
                   (click)="onClearCart()"
-                  class="flex items-center justify-center w-10 h-10 bg-red-100 hover:bg-red-200 text-red-600 rounded-full transition-all duration-200 hover:scale-105 group"
+                  class="flex items-center justify-center bg-red-100 hover:bg-red-200 text-red-600 rounded-full transition-all duration-200 hover:scale-105 group"
+                  [class.w-10]="!isMobile"
+                  [class.h-10]="!isMobile"
+                  [class.w-8]="isMobile"
+                  [class.h-8]="isMobile"
                   matTooltip="Clear Cart"
                 >
                   <mat-icon
-                    class="text-lg group-hover:scale-110 transition-transform"
+                    class="group-hover:scale-110 transition-transform"
+                    [class.text-lg]="!isMobile"
+                    [class.text-base]="isMobile"
                   >
                     remove_shopping_cart
                   </mat-icon>
@@ -150,9 +241,13 @@
 
                 <button
                   routerLink="cart"
-                  class="flex-1 bg-[#e04639] text-white font-medium py-2.5 px-2 rounded-lg transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+                  class="flex-1 bg-[#e04639] text-white font-medium rounded-lg transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+                  [class.py-2.5]="!isMobile"
+                  [class.px-2]="!isMobile"
+                  [class.py-2]="isMobile"
+                  [class.px-1]="isMobile"
                 >
-                  <span>Checkout</span>
+                  <span [class.text-sm]="isMobile">Checkout</span>
                 </button>
               </div>
             </div>
