@@ -241,13 +241,15 @@
 
                 <button
                   routerLink="cart"
-                  class="flex-1 bg-[#e04639] text-white font-medium rounded-lg transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+                  class="flex-1 bg-[#e04639] text-white font-medium rounded-full transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
                   [class.py-2.5]="!isMobile"
                   [class.px-2]="!isMobile"
                   [class.py-2]="isMobile"
                   [class.px-1]="isMobile"
                 >
-                  <span [class.text-sm]="isMobile">Checkout</span>
+                  <span [class.text-sm]="isMobile" [class.py-2]="!isMobile"
+                    >Checkout</span
+                  >
                 </button>
               </div>
             </div>
