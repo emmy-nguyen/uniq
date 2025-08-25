@@ -7,7 +7,12 @@ const app = express();
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:4200",
+    credentials: true,
+  })
+);
 
 const YOUR_DOMAIN = process.env.STRIPE_SERVER_DOMAIN || "http://localhost:4242";
 
