@@ -41,25 +41,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.setupResponsiveBreakpoints();
     this.getProducts();
   }
-  // forceShowToggle(): void {
-  //   this.isMobile = true;
-  //   this.isTablet = false;
-  //   this.isDesktop = false;
-  //   this.showDrawerToggle = true;
-  //   this.drawerOpened = false;
-  //   this.drawerMode = "over";
-  //   this.cols = 1;
-  //   this.updateRowHeight();
-  //   console.log("Forced mobile mode:", {
-  //     isMobile: this.isMobile,
-  //     showDrawerToggle: this.showDrawerToggle,
-  //     drawerMode: this.drawerMode,
-  //   });
-  // }
   private setupResponsiveBreakpoints(): void {
     const mobileBreakpoint = "(max-width: 767px)";
     const tabletBreakpoint = "(min-width: 768px) and (max-width: 1023px)";
     const desktopBreakpoint = "(min-width: 1024px)";
+
+    this.checkInitialBreakpoint();
 
     this.breakpointSubscription = this.breakpointObserver
       .observe([mobileBreakpoint, tabletBreakpoint, desktopBreakpoint])
@@ -83,6 +70,18 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.handleDesktopLayout();
         }
       });
+  }
+  private checkInitialBreakpoint(): void {
+    const width = window.innerWidth;
+    console.log("Window width:", width);
+
+    if (width < 768) {
+      this.handleMobileLayout();
+    } else if (width >= 768 && width < 1024) {
+      this.handleTabletLayout();
+    } else {
+      this.handleDesktopLayout();
+    }
   }
 
   private handleMobileLayout(): void {
@@ -113,10 +112,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   toggleDrawer(): void {
     this.drawerOpened = !this.drawerOpened;
+    this.handleBodyScroll();
   }
   onBackdropClick(): void {
     if (this.isMobile || this.isTablet) {
       this.drawerOpened = false;
+      this.handleBodyScroll();
+    }
+  }
+  onDrawerStateChange(opened: boolean): void {
+    this.drawerOpened = opened;
+    this.handleBodyScroll();
+  }
+  private handleBodyScroll(): void {
+    if (this.drawerOpened && this.drawerMode === "over") {
+      document.body.classList.add("drawer-open");
+    } else {
+      document.body.classList.remove("drawer-open");
     }
   }
 
@@ -178,6 +190,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getProducts();
   }
   ngOnDestroy(): void {
+    document.body.classList.remove("drawer-open");
     if (this.productsSubscription) {
       this.productsSubscription.unsubscribe();
     }
@@ -197,9 +210,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getDrawerClasses(): string {
+    const baseClasses = "h-screen overflow-hidden";
     return this.isMobile
-      ? "w-full max-w-sm bg-white shadow-2xl"
-      : "w-80 bg-white/95 backdrop-blur-sm border-gray-200/60 shadow-lg";
+      ? `${baseClasses} w-full max-w-sm bg-gradient-to-br from-gray-50 to-gray-100`
+      : `${baseClasses} w-80 bg-gradient-to-br from-gray-50 to-gray-100 backdrop-blur-sm border-gray-200/60`;
   }
 
   getContentClass(): string {

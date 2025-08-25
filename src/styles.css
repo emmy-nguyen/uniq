@@ -277,6 +277,20 @@ body {
 .product-table-card {
   box-shadow: none !important;
 }
-.mobile-toggle-debug {
-  z-index: 999 !important;
+
+/* prevent scrolling of body when drawer open */
+.drawer-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+/* ensure drawer content can scroll */
+mat-drawer {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+mat-drawer .drawer-content {
+  height: 100%;
+  overflow-y: auto;
 }
