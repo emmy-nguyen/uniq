@@ -39,12 +39,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.setupResponsiveBreakpoints();
     this.setupCartSubscription();
-    // update cart
     // TODO: Local storage
-    // this.cartService.cart.subscribe((_cart: Cart) => {
-    //   this.cart = _cart;
-    //   this.dataSource = this.cart.items;
-    // });
   }
 
   private setupResponsiveBreakpoints(): void {

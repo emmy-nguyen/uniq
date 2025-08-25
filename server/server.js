@@ -13,6 +13,7 @@ app.use(
     credentials: true,
   })
 );
+console.log("Allowed CORS origin:", process.env.FRONTEND_URL);
 
 const YOUR_DOMAIN = process.env.STRIPE_SERVER_DOMAIN || "http://localhost:4242";
 
